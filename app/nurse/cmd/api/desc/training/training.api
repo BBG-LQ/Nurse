@@ -1,0 +1,48 @@
+syntax = "v1"
+
+type SubmitTrainingReq {
+    CourseName string `json:"courseName"`
+    ExamMonth  string `json:"examMonth"`
+    Score      int32  `json:"score"`
+}
+
+type SubmitTrainingResp {
+    Passed       bool  `json:"passed"`
+    AttemptCount int32 `json:"attemptCount"`
+}
+
+type TrainingRecordItem {
+    Id           int64  `json:"id"`
+    CourseName   string `json:"courseName"`
+    ExamMonth    string `json:"examMonth"`
+    Score        int32  `json:"score"`
+    AttemptCount int32  `json:"attemptCount"`
+    Passed       bool   `json:"passed"`
+    CreatedAt    string `json:"createdAt"`
+}
+
+type ListTrainingRecordsResp {
+    List []TrainingRecordItem `json:"list"`
+}
+
+type UnqualifiedReq {
+    ExamMonth string `form:"examMonth"`
+}
+
+type UnqualifiedResp {
+    NurseIds []int64 `json:"nurseIds"`
+}
+
+// @server(
+//     group: training
+// )
+// service nurse-api {
+//     @handler submitTraining
+//     post /nurse/training/submit (SubmitTrainingReq) returns (SubmitTrainingResp)
+
+//     @handler listTrainingRecords
+//     get /nurse/training/records returns (ListTrainingRecordsResp)
+
+//     @handler listUnqualifiedNurses
+//     get /nurse/training/unqualified (UnqualifiedReq) returns (UnqualifiedResp)
+// }

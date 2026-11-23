@@ -1,0 +1,56 @@
+syntax = "v1"
+
+type CreateOrderReq {
+    ElderlyId   int64   `json:"elderlyId"`
+    ServiceType string  `json:"serviceType"`
+    Urgency     int32   `json:"urgency"`
+    Amount      float64 `json:"amount"`
+    ScheduledAt string  `json:"scheduledAt,optional"`
+}
+
+type CreateOrderResp {
+    OrderId int64  `json:"orderId"`
+    OrderNo string `json:"orderNo"`
+}
+
+
+type GetOrderReq {
+     Id int64 `path:"id"`
+ }
+
+
+type OrderDetail {
+    Id          int64   `json:"id"`
+    OrderNo     string  `json:"orderNo"`
+    ElderlyId   int64   `json:"elderlyId"`
+    NurseId     int64   `json:"nurseId"`
+    ServiceType string  `json:"serviceType"`
+    Status      int32   `json:"status"`
+    Urgency     int32   `json:"urgency"`
+    Amount      float64 `json:"amount"`
+    ScheduledAt string  `json:"scheduledAt"`
+    StartedAt   string  `json:"startedAt"`
+    FinishedAt  string  `json:"finishedAt"`
+    CreatedAt   string  `json:"createdAt"`
+}
+
+type SatisfactionReq {
+    OrderId int64  `path:"id"`
+    Score   int32  `json:"score"`
+    Comment string `json:"comment,optional"`
+}
+
+type SatisfactionResp {
+    Ok bool `json:"ok"`
+}
+
+type PerformanceReq {
+    NurseId int64 `form:"nurseId"`
+}
+
+type PerformanceResp {
+    OrderCount     int32   `json:"orderCount"`
+    ServiceMinutes int32   `json:"serviceMinutes"`
+    ScoreAvg       float64 `json:"scoreAvg"`
+}
+

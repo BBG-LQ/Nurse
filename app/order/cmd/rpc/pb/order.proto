@@ -1,0 +1,67 @@
+syntax = "proto3";
+package order;
+option go_package = "./order";
+
+service order {
+  rpc CreateOrder          (CreateOrderReq)          returns (CreateOrderResp);
+  rpc Dispatch             (DispatchReq)             returns (DispatchResp);
+  rpc AcceptOrder          (AcceptOrderReq)          returns (AcceptOrderResp);
+  rpc StartOrder           (StartOrderReq)           returns (StartOrderResp);
+  rpc FinishOrder          (FinishOrderReq)          returns (FinishOrderResp);
+  rpc GetOrder             (GetOrderReq)             returns (GetOrderResp);
+  rpc SubmitSatisfaction   (SubmitSatisfactionReq)   returns (SubmitSatisfactionResp);
+  rpc GetNursePerformance  (GetNursePerformanceReq)  returns (GetNursePerformanceResp);
+}
+
+message CreateOrderReq {
+  int64   elderly_id   = 1;
+  string  service_type = 2;
+  int32   urgency      = 3;
+  double  amount       = 4;
+  string  scheduled_at = 5;
+}
+message CreateOrderResp { int64 order_id = 1; string order_no = 2; }
+
+message DispatchReq  { int64 order_id = 1; }
+message DispatchResp { int64 nurse_id = 1; }
+
+message AcceptOrderReq  { int64 order_id = 1; int64 nurse_id = 2; }
+message AcceptOrderResp { bool ok = 1; }
+
+message StartOrderReq   { int64 order_id = 1; }
+message StartOrderResp  { bool ok = 1; }
+
+message FinishOrderReq  { int64 order_id = 1; }
+message FinishOrderResp { bool ok = 1; }
+
+message GetOrderReq { int64 order_id = 1; }
+message OrderDetail {
+  int64   id           = 1;
+  string  order_no     = 2;
+  int64   elderly_id   = 3;
+  int64   nurse_id     = 4;
+  string  service_type = 5;
+  int32   status       = 6;
+  int32   urgency      = 7;
+  double  amount       = 8;
+  string  scheduled_at = 9;
+  string  started_at   = 10;
+  string  finished_at  = 11;
+  string  created_at   = 12;
+}
+message GetOrderResp { OrderDetail order = 1; }
+
+message SubmitSatisfactionReq {
+  int64  order_id = 1;
+  int64  nurse_id = 2;
+  int32  score    = 3;
+  string comment  = 4;
+}
+message SubmitSatisfactionResp { bool ok = 1; }
+
+message GetNursePerformanceReq  { int64 nurse_id = 1; }
+message GetNursePerformanceResp {
+  int32  order_count      = 1;
+  int32  service_minutes  = 2;
+  double score_avg        = 3;
+}

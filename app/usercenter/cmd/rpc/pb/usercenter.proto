@@ -1,0 +1,66 @@
+syntax = "proto3";
+package usercenter;
+option go_package = "./usercenter";
+
+service usercenter {
+  rpc Login             (LoginReq)             returns (LoginResp);
+  rpc GetUser           (GetUserReq)           returns (GetUserResp);
+  rpc BindFamily        (BindFamilyReq)        returns (BindFamilyResp);
+  rpc ListFamilyElders  (ListFamilyEldersReq)  returns (ListFamilyEldersResp);
+  rpc UpdateProfile     (UpdateProfileReq)     returns (UpdateProfileResp);
+
+  rpc generateToken(GenerateTokenReq) returns(GenerateTokenResp);
+}
+
+message LoginReq {
+  string mobile   = 1;
+  string password = 2;
+}
+message LoginResp {
+  string token   = 1;
+
+
+  string role    = 2;
+  int64  user_id = 3;
+
+  int64  accessExpire  = 4;
+  int64  refreshAfter  = 5;
+
+
+}
+
+message GetUserReq  { int64 user_id = 1; }
+message GetUserResp {
+  int64  id        = 1;
+  string mobile    = 2;
+  string real_name = 3;
+  string role      = 4;
+  int32  status    = 5;
+}
+
+message BindFamilyReq {
+  int64  family_user_id = 1;
+  int64  elderly_id     = 2;
+  string relation       = 3;
+}
+message BindFamilyResp { bool ok = 1; }
+
+message ListFamilyEldersReq  { int64 family_user_id = 1; }
+message ListFamilyEldersResp { repeated int64 elderly_ids = 1; }
+
+message UpdateProfileReq {
+  int64  user_id   = 1;
+  string real_name = 2;
+}
+message UpdateProfileResp { bool ok = 1; }
+
+
+//==============================
+message GenerateTokenReq {
+  int64 userId = 1;
+}
+message GenerateTokenResp {
+  string accessToken = 1;
+  int64  accessExpire = 2;
+  int64  refreshAfter = 3;
+}

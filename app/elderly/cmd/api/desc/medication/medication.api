@@ -1,0 +1,34 @@
+syntax = "v1"
+
+type CreateMedicationReq {
+    ElderlyId   int64    `json:"elderlyId"`
+    NurseId     int64    `json:"nurseId"`
+    DrugName    string   `json:"drugName"`
+    Dosage      string   `json:"dosage"`
+    Frequency   string   `json:"frequency"`
+    RemindTimes []string `json:"remindTimes"`
+    StartDate   string   `json:"startDate"`
+    EndDate     string   `json:"endDate"`
+}
+
+type CreateMedicationResp {
+    Id int64 `json:"id"`
+}
+
+type MedicationItem {
+    Id          int64    `json:"id"`
+    ElderlyId   int64    `json:"elderlyId"`
+    NurseId     int64    `json:"nurseId"`
+    DrugName    string   `json:"drugName"`
+    Dosage      string   `json:"dosage"`
+    Frequency   string   `json:"frequency"`
+    RemindTimes []string `json:"remindTimes"`
+    StartDate   string   `json:"startDate"`
+    EndDate     string   `json:"endDate"`
+    Status      int32    `json:"status"`
+}
+
+type ListMedicationsResp {
+    List []MedicationItem `json:"list"`
+}
+

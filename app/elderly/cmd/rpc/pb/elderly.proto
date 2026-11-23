@@ -1,0 +1,94 @@
+syntax = "proto3";
+package elderly;
+option go_package = "./elderly";
+
+service elderly {
+  rpc CreateElderly       (CreateElderlyReq)       returns (CreateElderlyResp);
+  rpc GetElderly          (GetElderlyReq)          returns (GetElderlyResp);
+  rpc UpdateElderly       (UpdateElderlyReq)       returns (UpdateElderlyResp);
+  rpc ListElderly         (ListElderlyReq)         returns (ListElderlyResp);
+  rpc ListElderlyByIds    (ListElderlyByIdsReq)    returns (ListElderlyByIdsResp);
+  rpc CreateMedication    (CreateMedicationReq)    returns (CreateMedicationResp);
+  rpc ListMedications     (ListMedicationsReq)     returns (ListMedicationsResp);
+}
+
+message ElderlyInfo {
+  int64  id                = 1;
+  string real_name         = 2;
+  int32  gender            = 3;
+  string birth_date        = 4;
+  string mobile            = 5;
+  string address           = 6;
+  string emergency_contact = 7;
+  string emergency_mobile  = 8;
+  repeated string chronic_disease = 9;
+  int32  care_level        = 10;
+  int32  status            = 11;
+  string created_at        = 12;
+}
+
+message CreateElderlyReq {
+  string real_name         = 1;
+  int32  gender            = 2;
+  string birth_date        = 3;
+  string mobile            = 4;
+  string address           = 5;
+  string emergency_contact = 6;
+  string emergency_mobile  = 7;
+  repeated string chronic_disease = 8;
+  int32  care_level        = 9;
+}
+message CreateElderlyResp { int64 id = 1; }
+
+message GetElderlyReq  { int64 id = 1; }
+message GetElderlyResp { ElderlyInfo info = 1; }
+
+message UpdateElderlyReq {
+  int64  id                = 1;
+  string address           = 2;
+  string emergency_contact = 3;
+  string emergency_mobile  = 4;
+  repeated string chronic_disease = 5;
+  int32  care_level        = 6;
+}
+message UpdateElderlyResp { bool ok = 1; }
+
+message ListElderlyReq {
+  int32  page      = 1;
+  int32  page_size = 2;
+  string keyword   = 3;
+}
+message ListElderlyResp {
+  repeated ElderlyInfo list = 1;
+  int64 total = 2;
+}
+
+message ListElderlyByIdsReq  { repeated int64 ids = 1; }
+message ListElderlyByIdsResp { repeated ElderlyInfo list = 1; }
+
+message CreateMedicationReq {
+  int64  elderly_id   = 1;
+  int64  nurse_id     = 2;
+  string drug_name    = 3;
+  string dosage       = 4;
+  string frequency    = 5;
+  repeated string remind_times = 6;
+  string start_date   = 7;
+  string end_date     = 8;
+}
+message CreateMedicationResp { int64 id = 1; }
+
+message MedicationInfo {
+  int64  id           = 1;
+  int64  elderly_id   = 2;
+  int64  nurse_id     = 3;
+  string drug_name    = 4;
+  string dosage       = 5;
+  string frequency    = 6;
+  repeated string remind_times = 7;
+  string start_date   = 8;
+  string end_date     = 9;
+  int32  status       = 10;
+}
+message ListMedicationsReq  { int64 elderly_id = 1; }
+message ListMedicationsResp { repeated MedicationInfo list = 1; }

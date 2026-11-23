@@ -1,0 +1,39 @@
+syntax = "v1"
+
+import (
+	"archive/archive.api"
+	"medication/medication.api"
+)
+
+@server (
+	prefix: /api/v1
+	group:  archive
+	jwt:    JwtAuth
+)
+service elderly-api {
+	@handler createElderly
+	post /elderly/archive (CreateElderlyReq) returns (CreateElderlyResp)
+
+	@handler getElderly
+	get /elderly/archive/:id returns (GetElderlyResp)
+
+	@handler updateElderly
+	put /elderly/archive/:id (UpdateElderlyReq) returns (UpdateElderlyResp)
+
+	@handler listElderly
+	get /elderly/archive (ListElderlyReq) returns (ListElderlyResp)
+}
+
+@server (
+	prefix: /api/v1
+	group:  medication
+	jwt:    JwtAuth
+)
+service elderly-api {
+	@handler createMedication
+	post /elderly/medication (CreateMedicationReq) returns (CreateMedicationResp)
+
+	@handler listMedications
+	get /elderly/:id/medications returns (ListMedicationsResp)
+}
+

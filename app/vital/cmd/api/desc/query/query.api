@@ -1,0 +1,30 @@
+syntax = "v1"
+
+type ListRecordsReq {
+    ElderlyId int64 `form:"elderlyId"`
+    Days      int32 `form:"days,default=7"`
+}
+
+type VitalRecordItem {
+    Id         int64   `json:"id"`
+    HeartRate  int32   `json:"heartRate"`
+    Systolic   int32   `json:"systolic"`
+    Diastolic  int32   `json:"diastolic"`
+    Spo2       float64 `json:"spo2"`
+    Posture    int32   `json:"posture"`
+    RecordTime string  `json:"recordTime"`
+}
+
+type ListRecordsResp {
+    List []VitalRecordItem `json:"list"`
+}
+
+type CheckAbnormalReq {
+    ElderlyId int64 `form:"elderlyId"`
+}
+
+type CheckAbnormalResp {
+    Continuous bool  `json:"continuous"`
+    Days       int32 `json:"days"`
+}
+

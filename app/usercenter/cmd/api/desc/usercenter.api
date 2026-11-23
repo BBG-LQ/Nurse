@@ -1,0 +1,49 @@
+syntax = "v1"
+
+import (
+	"auth/auth.api"
+	"user/user.api"
+)
+
+//no need login
+@server (
+	prefix: /api/v1
+	group:  auth
+)
+service usercenter-api {
+	@doc "login"
+	@handler login
+	post /auth/login (LoginReq) returns (LoginResp)
+}
+
+//need login
+@server (
+	prefix: /api/v1
+	group:  auth
+	jwt:    JwtAuth
+)
+service usercenter-api {
+	@doc "bind"
+	@handler bindFamily
+	post /auth/family/bind (BindFamilyReq) returns (BindFamilyResp)
+
+	@doc "listFamilyElders"
+	@handler listFamilyElders
+	get /auth/family/elders returns (FamilyEldersResp)
+}
+
+@server (
+	prefix: /api/v1
+	group:  user
+	jwt:    JwtAuth
+)
+service usercenter-api {
+	@doc "get user profile"
+	@handler getProfile
+	get /user/profile returns (ProfileResp)
+
+	@doc "update user profile"
+	@handler updateProfile
+	put /user/profile (UpdateProfileReq) returns (UpdateProfileResp)
+}
+

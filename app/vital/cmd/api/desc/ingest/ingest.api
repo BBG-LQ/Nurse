@@ -1,0 +1,17 @@
+syntax = "v1"
+
+type IngestReq {
+    ElderlyId int64   `json:"elderlyId"`
+    HeartRate int32   `json:"heartRate"`
+    Systolic  int32   `json:"systolic"`
+    Diastolic int32   `json:"diastolic"`
+    Spo2      float64 `json:"spo2"`
+    Posture   int32   `json:"posture"`
+}
+
+type IngestResp {
+    Abnormal bool  `json:"abnormal"`
+    RecordId int64 `json:"recordId"`
+}
+
+

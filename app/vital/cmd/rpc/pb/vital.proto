@@ -1,0 +1,40 @@
+syntax = "proto3";
+package vital;
+option go_package = "./vital";
+
+service vital {
+  rpc Ingest                   (IngestReq)                   returns (IngestResp);
+  rpc ListRecords              (ListRecordsReq)              returns (ListRecordsResp);
+  rpc CheckContinuousAbnormal  (CheckContinuousAbnormalReq)  returns (CheckContinuousAbnormalResp);
+}
+
+message IngestReq {
+  int64   elderly_id = 1;
+  int32   heart_rate = 2;
+  int32   systolic   = 3;
+  int32   diastolic  = 4;
+  double  spo2       = 5;
+  int32   posture    = 6;
+}
+message IngestResp {
+  bool  abnormal  = 1;
+  int64 record_id = 2;
+}
+
+message ListRecordsReq {
+  int64 elderly_id = 1;
+  int32 days       = 2;
+}
+message VitalRecord {
+  int64   id          = 1;
+  int32   heart_rate  = 2;
+  int32   systolic    = 3;
+  int32   diastolic   = 4;
+  double  spo2        = 5;
+  int32   posture     = 6;
+  string  record_time = 7;
+}
+message ListRecordsResp { repeated VitalRecord list = 1; }
+
+message CheckContinuousAbnormalReq  { int64 elderly_id = 1; }
+message CheckContinuousAbnormalResp { bool continuous = 1; int32 days = 2; }

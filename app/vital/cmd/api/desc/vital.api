@@ -1,0 +1,33 @@
+syntax = "v1"
+
+import (
+	"ingest/ingest.api"
+	"query/query.api"
+)
+
+@server (
+	prefix: /api/v1
+	group:  ingest
+	jwt:    JwtAuth
+)
+service vital-api {
+	@doc "模拟手环上报"
+	@handler ingest
+	post /vital/ingest (IngestReq) returns (IngestResp)
+}
+
+@server (
+	prefix: /api/v1
+	group:  query
+	jwt:    JwtAuth
+)
+service vital-api {
+	@doc "近 N 天趋势"
+	@handler listRecords
+	get /vital/records (ListRecordsReq) returns (ListRecordsResp)
+
+	@doc "连续异常判定"
+	@handler checkContinuousAbnormal
+	get /vital/abnormal/continuous (CheckAbnormalReq) returns (CheckAbnormalResp)
+}
+

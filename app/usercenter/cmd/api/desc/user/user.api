@@ -1,0 +1,18 @@
+syntax = "v1"
+
+type ProfileResp {
+    Id       int64  `json:"id"`
+    Mobile   string `json:"mobile"`
+    RealName string `json:"realName"`
+    Role     string `json:"role"`
+    Status   int32  `json:"status"`
+}
+
+type UpdateProfileReq {
+    RealName string `json:"realName"`
+}
+
+type UpdateProfileResp {
+    Ok bool `json:"ok"`
+}
+

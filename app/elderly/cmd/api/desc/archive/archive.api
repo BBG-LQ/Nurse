@@ -1,0 +1,57 @@
+syntax = "v1"
+
+type CreateElderlyReq {
+    RealName        string   `json:"realName"`
+    Gender          int32    `json:"gender"`
+    BirthDate       string   `json:"birthDate"`
+    Mobile          string   `json:"mobile"`
+    Address         string   `json:"address"`
+    EmergencyContact string  `json:"emergencyContact"`
+    EmergencyMobile string   `json:"emergencyMobile"`
+    ChronicDisease  []string `json:"chronicDisease"`
+    CareLevel       int32    `json:"careLevel"`
+}
+
+type CreateElderlyResp {
+    Id int64 `json:"id"`
+}
+
+type GetElderlyResp {
+    Id               int64    `json:"id"`
+    RealName         string   `json:"realName"`
+    Gender           int32    `json:"gender"`
+    BirthDate        string   `json:"birthDate"`
+    Mobile           string   `json:"mobile"`
+    Address          string   `json:"address"`
+    EmergencyContact string   `json:"emergencyContact"`
+    EmergencyMobile  string   `json:"emergencyMobile"`
+    ChronicDisease   []string `json:"chronicDisease"`
+    CareLevel        int32    `json:"careLevel"`
+    Status           int32    `json:"status"`
+    CreatedAt        string   `json:"createdAt"`
+}
+
+type UpdateElderlyReq {
+    Id               int64    `path:"id"`
+    Address          string   `json:"address,optional"`
+    EmergencyContact string   `json:"emergencyContact,optional"`
+    EmergencyMobile  string   `json:"emergencyMobile,optional"`
+    ChronicDisease   []string `json:"chronicDisease,optional"`
+    CareLevel        int32    `json:"careLevel,optional"`
+}
+
+type UpdateElderlyResp {
+    Ok bool `json:"ok"`
+}
+
+type ListElderlyReq {
+    Page     int32  `form:"page,default=1"`
+    PageSize int32  `form:"pageSize,default=10"`
+    Keyword  string `form:"keyword,optional"`
+}
+
+type ListElderlyResp {
+    List  []GetElderlyResp `json:"list"`
+    Total int64            `json:"total"`
+}
+

@@ -1,0 +1,22 @@
+syntax = "v1"
+
+type ReportAdverseReq {
+    EventType   string `json:"eventType"`
+    Description string `json:"description"`
+    NurseId     int64  `json:"nurseId,optional"`
+    ElderlyId   int64  `json:"elderlyId,optional"`
+}
+
+type ReportAdverseResp {
+    Id int64 `json:"id"`
+}
+
+type StatisticsReq {
+    Month string `form:"month"`
+}
+
+type StatisticsResp {
+    TypeCount map[string]int32 `json:"typeCount"`
+    Total     int32            `json:"total"`
+}
+

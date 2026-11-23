@@ -1,0 +1,45 @@
+syntax = "v1"
+
+import (
+	"profile/profile.api"
+	"training/training.api"
+)
+
+@server (
+	prefix: /api/v1
+	group:  profile
+	jwt:    JwtAuth
+)
+service nurse-api {
+	@doc "录入护士档案"
+	@handler createNurse
+	post /nurse/profile (CreateNurseReq) returns (CreateNurseResp)
+
+	@doc "护士详情"
+	@handler getNurse
+	get /nurse/profile/:id returns (NurseDetail)
+
+	@doc "更新档案/触发复核"
+	@handler updateNurse
+	put /nurse/profile/:id (UpdateNurseReq) returns (UpdateNurseResp)
+}
+
+@server (
+	prefix: /api/v1
+	group:  training
+	jwt:    JwtAuth
+)
+service nurse-api {
+	@doc "提交考核"
+	@handler submitTraining
+	post /nurse/training/submit (SubmitTrainingReq) returns (SubmitTrainingResp)
+
+	@doc "个人考核记录"
+	@handler listTrainingRecords
+	get /nurse/training/records returns (ListTrainingRecordsResp)
+
+	@doc "三次不合格名单"
+	@handler listUnqualifiedNurses
+	get /nurse/training/unqualified (UnqualifiedReq) returns (UnqualifiedResp)
+}
+

@@ -1,0 +1,53 @@
+syntax = "v1"
+
+type CreateNurseReq {
+    RealName      string   `json:"realName"`
+    Mobile        string   `json:"mobile"`
+    LicenseNo     string   `json:"licenseNo"`
+    LicenseExpire string   `json:"licenseExpire"`
+    SkillTags     []string `json:"skillTags"`
+    ServiceArea   string   `json:"serviceArea"`
+}
+
+type CreateNurseResp {
+    Id int64 `json:"id"`
+}
+
+type NurseDetail {
+    Id            int64    `json:"id"`
+    RealName      string   `json:"realName"`
+    Mobile        string   `json:"mobile"`
+    LicenseNo     string   `json:"licenseNo"`
+    LicenseExpire string   `json:"licenseExpire"`
+    SkillTags     []string `json:"skillTags"`
+    ServiceArea   string   `json:"serviceArea"`
+    CurrentLoad   int32    `json:"currentLoad"`
+    ScoreAvg      float64  `json:"scoreAvg"`
+    Status        int32    `json:"status"`
+}
+
+type UpdateNurseReq {
+    Id            int64    `path:"id"`
+    SkillTags     []string `json:"skillTags,optional"`
+    ServiceArea   string   `json:"serviceArea,optional"`
+    Status        int32    `json:"status,optional"`
+    LicenseExpire string   `json:"licenseExpire,optional"`
+}
+
+type UpdateNurseResp {
+    Ok bool `json:"ok"`
+}
+
+// @server(
+//     group: profile
+// )
+// service nurse-api {
+//     @handler createNurse
+//     post /nurse/profile (CreateNurseReq) returns (CreateNurseResp)
+
+//     @handler getNurse
+//     get /nurse/profile/:id returns (NurseDetail)
+
+//     @handler updateNurse
+//     put /nurse/profile/:id (UpdateNurseReq) returns (UpdateNurseResp)
+// }

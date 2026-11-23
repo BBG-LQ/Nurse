@@ -1,0 +1,69 @@
+syntax = "proto3";
+package alert;
+option go_package = "./alert";
+
+service alert {
+  rpc CreateAlert        (CreateAlertReq)        returns (CreateAlertResp);
+  rpc SosElderly         (SosElderlyReq)         returns (SosElderlyResp);
+  rpc SosNurse           (SosNurseReq)           returns (SosNurseResp);
+  rpc ListAlerts         (ListAlertsReq)         returns (ListAlertsResp);
+  rpc ReportAdverse      (ReportAdverseReq)      returns (ReportAdverseResp);
+  rpc AdverseStatistics  (AdverseStatisticsReq)  returns (AdverseStatisticsResp);
+}
+
+message CreateAlertReq {
+  int64  elderly_id = 1;
+  string alert_type = 2;
+  int32  severity   = 3;
+  string content    = 4;
+}
+message CreateAlertResp { int64 id = 1; }
+
+message SosElderlyReq {
+  int64  elderly_id = 1;
+  string content    = 2;
+}
+message SosElderlyResp { int64 alert_id = 1; }
+
+message SosNurseReq {
+  int64  nurse_id = 1;
+  int64  order_id = 2;
+  string content  = 3;
+}
+message SosNurseResp { int64 alert_id = 1; }
+
+message ListAlertsReq {
+  int32 handled   = 1;
+  int32 page      = 2;
+  int32 page_size = 3;
+}
+message AlertItem {
+  int64  id         = 1;
+  int64  elderly_id = 2;
+  int64  nurse_id   = 3;
+  int64  order_id   = 4;
+  string alert_type = 5;
+  int32  severity   = 6;
+  string content    = 7;
+  int32  handled    = 8;
+  string created_at = 9;
+}
+message ListAlertsResp {
+  repeated AlertItem list = 1;
+  int64 total = 2;
+}
+
+message ReportAdverseReq {
+  string event_type   = 1;
+  string description  = 2;
+  int64  nurse_id     = 3;
+  int64  elderly_id   = 4;
+  string reporter_hash = 5;
+}
+message ReportAdverseResp { int64 id = 1; }
+
+message AdverseStatisticsReq  { string month = 1; }
+message AdverseStatisticsResp {
+  map<string, int32> type_count = 1;
+  int32 total = 2;
+}

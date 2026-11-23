@@ -1,0 +1,35 @@
+syntax = "v1"
+
+type DispatchReq {
+    OrderId int64 `json:"orderId"`
+}
+
+type DispatchResp {
+    NurseId int64 `json:"nurseId"`
+}
+
+type AcceptReq {
+    OrderId int64 `path:"id"`
+    NurseId int64 `json:"nurseId"`
+}
+
+type AcceptResp {
+    Ok bool `json:"ok"`
+}
+
+type StartReq {
+    OrderId int64 `path:"id"`
+}
+
+type StartResp {
+    Ok bool `json:"ok"`
+}
+
+type FinishReq {
+    OrderId int64 `path:"id"`
+}
+
+type FinishResp {
+    Ok bool `json:"ok"`
+}
+

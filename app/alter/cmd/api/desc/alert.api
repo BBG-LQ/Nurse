@@ -1,0 +1,41 @@
+syntax = "v1"
+
+import (
+	"safety/safety.api"
+	"adverse/adverse.api"
+)
+
+@server (
+	group:  safety
+	prefix: /api/v1
+	jwt:    JwtAuth
+)
+service alert-api {
+	@doc "老人一键呼救"
+	@handler sosElderly
+	post /alert/sos/elderly (SosElderlyReq) returns (SosElderlyResp)
+
+	@doc "护士一键报警"
+	@handler sosNurse
+	post /alert/sos/nurse (SosNurseReq) returns (SosNurseResp)
+
+	@doc "警报列表"
+	@handler listAlerts
+	get /alert/events (ListAlertsReq) returns (ListAlertsResp)
+}
+
+@server (
+	group:  adverse
+	prefix: /api/v1
+	jwt:    JwtAuth
+)
+service alert-api {
+	@doc "匿名上报"
+	@handler reportAdverse
+	post /adverse/report (ReportAdverseReq) returns (ReportAdverseResp)
+
+	@doc "统计图表数据"
+	@handler adverseStatistics
+	get /adverse/statistics (StatisticsReq) returns (StatisticsResp)
+}
+

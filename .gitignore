@@ -1,0 +1,76 @@
+# ================= Go 编译产物 =================
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+/bin/
+/dist/
+/build/
+
+# 各服务编译出的二进制（根目录 / cmd 下直接生成时）
+/alter
+/elderly
+/nurse
+/order
+/usercenter
+/vital
+/app/*/cmd/api/api
+/app/*/cmd/rpc/rpc
+
+# Go 工作区
+go.work
+go.work.sum
+
+# 测试覆盖率
+coverage.out
+coverage.html
+*.cover
+
+# ================= 配置与密钥 =================
+# 本地实际配置（etc 下含数据库密码、JWT 密钥等）
+# ⚠️ 若团队约定“提交 etc 配置”，请删掉这三行，改为只忽略 *.local.yaml
+/app/*/cmd/*/etc/*.yaml
+/app/*/cmd/*/etc/*.yml
+/app/*/cmd/*/etc/*.json
+# 保留配置模板
+!/app/*/cmd/*/etc/*.example.yaml
+!/app/*/cmd/*/etc/*.example.yml
+!/app/*/cmd/*/etc/*.example.json
+
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+*.p12
+
+# ================= 日志与运行时 =================
+*.log
+logs/
+log/
+tmp/
+temp/
+*.pid
+*.sock
+
+# ================= 数据库/数据文件 =================
+*.db
+*.sqlite
+*.sqlite3
+/data/
+
+# ================= 编辑器 / IDE =================
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ================= 其它缓存 =================
+.cache/

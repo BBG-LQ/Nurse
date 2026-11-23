@@ -1,0 +1,26 @@
+syntax = "v1"
+
+type LoginReq {
+    Mobile   string `json:"mobile"`
+    Password string `json:"password"`
+}
+
+type LoginResp {
+    Token  string `json:"token"`
+    Role   string `json:"role"`
+    UserId int64  `json:"userId"`
+}
+
+type BindFamilyReq {
+    ElderlyId int64  `json:"elderlyId"`
+    Relation  string `json:"relation"`
+}
+
+type BindFamilyResp {
+    Ok bool `json:"ok"`
+}
+
+type FamilyEldersResp {
+    ElderlyIds []int64 `json:"elderlyIds"`
+}
+

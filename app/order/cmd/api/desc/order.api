@@ -1,0 +1,54 @@
+syntax = "v1"
+
+import (
+	"dispatch/dispatch.api"
+	"service/service.api"
+)
+
+@server (
+	group:  dispatch
+	prefix: /api/v1
+	jwt:    JwtAuth
+)
+service order-api {
+	@doc "智能调度"
+	@handler dispatch
+	post /order/dispatch (DispatchReq) returns (DispatchResp)
+
+	@doc "护士接单"
+	@handler acceptOrder
+	post /order/:id/accept (AcceptReq) returns (AcceptResp)
+
+	@doc "开始服务"
+	@handler startOrder
+	post /order/:id/start (StartReq) returns (StartResp)
+
+	@doc "完成服务"
+	@handler finishOrder
+	post /order/:id/finish (FinishReq) returns (FinishResp)
+}
+
+@server (
+	group:  service
+	prefix: /api/v1
+	jwt:    JwtAuth
+)
+service order-api {
+	@doc "创建订单"
+	@handler createOrder
+	post /order (CreateOrderReq) returns (CreateOrderResp)
+
+	@doc "订单详情"
+	@handler getOrder
+	// get /order/:id returns (OrderDetail)
+	get /order (GetOrderReq) returns (OrderDetail)
+
+	@doc "满意度评分"
+	@handler submitSatisfaction
+	post /order/satisfaction (SatisfactionReq) returns (SatisfactionResp)
+
+	@doc "护士绩效汇总"
+	@handler getNursePerformance
+	get /order/nurse/performance (PerformanceReq) returns (PerformanceResp)
+}
+
